@@ -13,12 +13,14 @@ export class AppComponent implements OnInit {
     minNumber = 100;
     Values: Array<BarGraphModel> = [];
     delay = 200;
+    sorted = false;
+    btnDisabled = false;
 
     constructor() { }
 
     ngOnInit() {
         this.initializeValue();
-        this.sortInIncreasingOrder(this.Values);
+        // this.sortInIncreasingOrder(this.Values);
     }
 
     initializeValue() {
@@ -39,15 +41,17 @@ export class AppComponent implements OnInit {
 
     async sortInIncreasingOrder(arrayToSort: Array<BarGraphModel> = []) {
         for (let i = 0; i < arrayToSort.length - 1; i++) {
+            this.sorted = true;
             for (let j = i + 1; j < arrayToSort.length; j++) {
-                console.log(`values: (i- ${i}, j- ${j})`);
                 if (arrayToSort[j].value < arrayToSort[i].value) {
+                    this.sorted = false;
                     const temp = arrayToSort[i];
                     arrayToSort[i] = arrayToSort[j];
                     arrayToSort[j] = temp;
                     await this.timer(this.delay);
                 }
             }
+            if (this.sorted) break;
         }
     }
 

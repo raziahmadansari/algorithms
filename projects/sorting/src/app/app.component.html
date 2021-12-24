@@ -1,1 +1,4 @@
 <app-bar-graph [List]="Values"></app-bar-graph>
+<div>
+    <button (click)="btnDisabled = true; sortInIncreasingOrder(Values)" [disabled]="btnDisabled">Start Sorting</button>
+</div>
