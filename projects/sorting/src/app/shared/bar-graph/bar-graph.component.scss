@@ -1,12 +1,12 @@
 $Largura-Barra: 60px;
-$MaxHeight: 160px;
+// $MaxHeight: 512px;
 
 .bar-graph {
     .content {
         display: flex;
         flex-direction: row;
         width: 100%;
-        height: $MaxHeight;
+        // height: $MaxHeight;
         span: {
             font-family: 'Roboto';
             font-size: 13px;
@@ -29,7 +29,7 @@ $MaxHeight: 160px;
         text-align: center;
         span{
             width: $Largura-Barra;
-            margin:0 15px;
+            margin:0 4px;
         }
     }
     .bars{
@@ -42,7 +42,7 @@ $MaxHeight: 160px;
     .bar{
         width: $Largura-Barra;
         min-height: 2px;
-        margin:0 15px;
+        margin:0 4px;
         border-top-left-radius: 7px;
         border-top-right-radius: 7px;
         &:hover{
