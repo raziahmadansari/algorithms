@@ -2,11 +2,13 @@ $Largura-Barra: 60px;
 // $MaxHeight: 512px;
 
 .bar-graph {
+    height: 100%;
     .content {
         display: flex;
         flex-direction: row;
-        width: 100%;
+        // width: 100%;
         // height: $MaxHeight;
+        height: calc(100% - 50px);
         span: {
             font-family: 'Roboto';
             font-size: 13px;
@@ -38,9 +40,11 @@ $Largura-Barra: 60px;
         align-items: center;
         justify-content: flex-end;
         height: 100%;
+        flex: 1 1 30px;
     }
     .bar{
-        width: $Largura-Barra;
+        // width: $Largura-Barra;
+        width: 100%;
         min-height: 2px;
         margin:0 4px;
         border-top-left-radius: 7px;

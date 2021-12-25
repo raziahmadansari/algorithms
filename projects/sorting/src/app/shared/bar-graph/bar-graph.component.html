@@ -1,8 +1,8 @@
 <div class="bar-graph">
-    <div class="content" [style.height]="MaxHeight + 'px'">
+    <div class="content">
         <div class="bars" *ngFor="let item of List">
             <span>{{item.value}}</span>
-            <div class="bar" [style.background-color]="item.color" [style.height]='item.size'></div>
+            <div class="bar" [style.background-color]="item.color" [style.height]="item.size"></div>
         </div>
     </div>
     <div class="line"></div>

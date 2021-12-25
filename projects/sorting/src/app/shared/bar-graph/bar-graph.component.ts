@@ -11,13 +11,12 @@ export class BarGraphComponent implements OnInit {
     @Input() List: Array<BarGraphModel> = [];
 
     Total = 0;
-    MaxHeight = 512; // default
+    MaxHeight: number = 512; // default;
     MaxValue = 0;
 
     constructor() { }
 
     ngOnInit(): void {
-        this.MaxHeight = window.innerHeight - 200;
         this.initialize();
     }
 
