@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { BarGraphModel } from '../shared';
+import { activeElementColor, BarGraphModel, resetElementColor, swap, timer } from '../shared';
 
 @Component({
     selector: 'app-bubble-sort',
@@ -12,7 +12,7 @@ export class BubbleSortComponent implements OnInit {
     maxNumber = 3000;
     minNumber = 100;
     Values: Array<BarGraphModel> = [];
-    delay = 200;
+    delay = 150;
     sorted = false;
     btnDisabled = false;
 
@@ -24,7 +24,7 @@ export class BubbleSortComponent implements OnInit {
 
     async initializeValue() {
         this.Values = [];
-        await this.timer(100);
+        await timer(100);
         const A = 'A'.charCodeAt(0);
         for (let i = 0; i < 26; i++) {
             this.Values.push({ value: this.getRandomNumber(), color: this.getRandomColor(), size: '', legend: String.fromCharCode(A + i) });
@@ -44,20 +44,27 @@ export class BubbleSortComponent implements OnInit {
         for (let i = 0; i < arrayToSort.length - 1; i++) {
             this.sorted = true;
             for (let j = 0; j < arrayToSort.length - i - 1; j++) {
+                const element1Color = arrayToSort[j].color;
+                const element2Color = arrayToSort[j + 1].color;
+                activeElementColor(arrayToSort, j);
+                activeElementColor(arrayToSort, j + 1);
+                await timer(this.delay + 300);
+                let elementsSwapped = false;
                 if (arrayToSort[j].value > arrayToSort[j + 1].value) {
+                    elementsSwapped = true;
                     this.sorted = false;
-                    const temp = arrayToSort[j];
-                    arrayToSort[j] = arrayToSort[j + 1];
-                    arrayToSort[j + 1] = temp;
-                    await this.timer(this.delay);
+                    swap(arrayToSort, j, j + 1);
+                    await timer(this.delay);
+                    resetElementColor(arrayToSort, j, element2Color);
+                    resetElementColor(arrayToSort, j + 1, element1Color);
+                }
+                if (!elementsSwapped) {
+                    resetElementColor(arrayToSort, j, element1Color);
+                    resetElementColor(arrayToSort, j + 1, element2Color);
                 }
             }
             if (this.sorted) break;
         }
         window.alert('Bubble sort completed');
-    }
-
-    timer(milliSeconds: number) {
-        return new Promise(res => setTimeout(res, milliSeconds));
     }
 }
