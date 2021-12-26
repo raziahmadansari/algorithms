@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { activeElementColor, BarGraphModel, resetElementColor, timer } from '../shared';
+import { BarGraphModel, timer } from '../shared';
 
 @Component({
     selector: 'app-insertion-sort',
@@ -12,7 +12,7 @@ export class InsertionSortComponent implements OnInit {
     maxNumber = 3000;
     minNumber = 100;
     Values: Array<BarGraphModel> = [];
-    delay = 100;
+    delay = 150;
     btnDisabled = false;
 
     constructor() { }
@@ -44,17 +44,11 @@ export class InsertionSortComponent implements OnInit {
             const key = arrayToSort[i];
             let j = i - 1;
             while (j >= 0 && arrayToSort[j].value > key.value) {
-                let element1Color = arrayToSort[j].color;
-                activeElementColor(arrayToSort, j);
-                await timer(this.delay);
                 arrayToSort[j + 1] = arrayToSort[j];
-                await timer(this.delay);
-                resetElementColor(arrayToSort, j + 1, element1Color);
                 j -= 1;
+                await timer(this.delay);
             }
-            
             if (arrayToSort[j + 1].value != key.value) {
-                resetElementColor(arrayToSort, i, key.color);
                 arrayToSort[j + 1] = key;
                 await timer(this.delay);
             }
