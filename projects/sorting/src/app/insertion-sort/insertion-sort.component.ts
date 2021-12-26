@@ -3,17 +3,16 @@ import { Component, OnInit } from '@angular/core';
 import { BarGraphModel } from '../shared';
 
 @Component({
-    selector: 'app-bubble-sort',
-    templateUrl: './bubble-sort.component.html',
-    styleUrls: ['./bubble-sort.component.scss']
+    selector: 'app-insertion-sort',
+    templateUrl: './insertion-sort.component.html',
+    styleUrls: ['./insertion-sort.component.scss']
 })
-export class BubbleSortComponent implements OnInit {
-    title = 'Bubble Sort';
+export class InsertionSortComponent implements OnInit {
+    title = 'Insertion Sort';
     maxNumber = 3000;
     minNumber = 100;
     Values: Array<BarGraphModel> = [];
-    delay = 200;
-    sorted = false;
+    delay = 500;
     btnDisabled = false;
 
     constructor() { }
@@ -40,21 +39,18 @@ export class BubbleSortComponent implements OnInit {
         return '#' + Math.random().toString(16).substring(2, 8);
     }
 
-    async bubbleSort(arrayToSort: Array<BarGraphModel> = []) {
-        for (let i = 0; i < arrayToSort.length - 1; i++) {
-            this.sorted = true;
-            for (let j = 0; j < arrayToSort.length - i - 1; j++) {
-                if (arrayToSort[j].value > arrayToSort[j + 1].value) {
-                    this.sorted = false;
-                    const temp = arrayToSort[j];
-                    arrayToSort[j] = arrayToSort[j + 1];
-                    arrayToSort[j + 1] = temp;
-                    await this.timer(this.delay);
-                }
+    async insertionSort(arrayToSort: Array<BarGraphModel> = []) {
+        for (let i = 1; i < arrayToSort.length; i++) {
+            const key = arrayToSort[i];
+            let j = i - 1;
+            while (j >= 0 && arrayToSort[j].value > key.value) {
+                arrayToSort[j + 1] = arrayToSort[j];
+                j -= 1;
             }
-            if (this.sorted) break;
+            arrayToSort[j + 1] = key;
+            await this.timer(this.delay);
         }
-        window.alert('Bubble sort completed');
+        window.alert('Insertion sort completed');
     }
 
     timer(milliSeconds: number) {

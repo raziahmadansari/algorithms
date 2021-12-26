@@ -3,17 +3,16 @@ import { Component, OnInit } from '@angular/core';
 import { BarGraphModel } from '../shared';
 
 @Component({
-    selector: 'app-bubble-sort',
-    templateUrl: './bubble-sort.component.html',
-    styleUrls: ['./bubble-sort.component.scss']
+    selector: 'app-selection-sort',
+    templateUrl: './selection-sort.component.html',
+    styleUrls: ['./selection-sort.component.scss']
 })
-export class BubbleSortComponent implements OnInit {
-    title = 'Bubble Sort';
+export class SelectionSortComponent implements OnInit {
+    title = 'Selection Sort';
     maxNumber = 3000;
     minNumber = 100;
     Values: Array<BarGraphModel> = [];
-    delay = 200;
-    sorted = false;
+    delay = 500;
     btnDisabled = false;
 
     constructor() { }
@@ -40,21 +39,22 @@ export class BubbleSortComponent implements OnInit {
         return '#' + Math.random().toString(16).substring(2, 8);
     }
 
-    async bubbleSort(arrayToSort: Array<BarGraphModel> = []) {
+    async selectionSort(arrayToSort: Array<BarGraphModel> = []) {
         for (let i = 0; i < arrayToSort.length - 1; i++) {
-            this.sorted = true;
-            for (let j = 0; j < arrayToSort.length - i - 1; j++) {
-                if (arrayToSort[j].value > arrayToSort[j + 1].value) {
-                    this.sorted = false;
-                    const temp = arrayToSort[j];
-                    arrayToSort[j] = arrayToSort[j + 1];
-                    arrayToSort[j + 1] = temp;
-                    await this.timer(this.delay);
+            let min_index = i;
+            for (let j = i + 1; j < arrayToSort.length; j++) {
+                if (arrayToSort[j].value < arrayToSort[min_index].value) {
+                    min_index = j;
                 }
             }
-            if (this.sorted) break;
+            const temp = arrayToSort[min_index];
+            arrayToSort[min_index] = arrayToSort[i];
+            arrayToSort[i] = temp;
+            if (min_index != i) {
+                await this.timer(this.delay);
+            }
         }
-        window.alert('Bubble sort completed');
+        window.alert('Selection sort completed');
     }
 
     timer(milliSeconds: number) {
