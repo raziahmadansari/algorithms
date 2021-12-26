@@ -30,7 +30,8 @@ $Largura-Barra: 60px;
         font-size: 12px;
         text-align: center;
         span{
-            width: $Largura-Barra;
+            // width: $Largura-Barra;
+            flex: 1 1 30px;
             margin:0 4px;
         }
     }

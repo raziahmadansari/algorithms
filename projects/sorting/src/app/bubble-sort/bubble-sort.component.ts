@@ -64,6 +64,7 @@ export class BubbleSortComponent implements OnInit {
             }
             if (this.sorted) break;
         }
+        await timer(100);
         window.alert('Bubble sort completed');
     }
 }

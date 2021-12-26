@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { BarGraphModel } from '../shared';
+import { activeElementColor, BarGraphModel, resetElementColor, swap, timer } from '../shared';
 
 @Component({
     selector: 'app-selection-sort',
@@ -12,7 +12,7 @@ export class SelectionSortComponent implements OnInit {
     maxNumber = 3000;
     minNumber = 100;
     Values: Array<BarGraphModel> = [];
-    delay = 500;
+    delay = 100;
     btnDisabled = false;
 
     constructor() { }
@@ -23,7 +23,7 @@ export class SelectionSortComponent implements OnInit {
 
     async initializeValue() {
         this.Values = [];
-        await this.timer(100);
+        await timer(100);
         const A = 'A'.charCodeAt(0);
         for (let i = 0; i < 26; i++) {
             this.Values.push({ value: this.getRandomNumber(), color: this.getRandomColor(), size: '', legend: String.fromCharCode(A + i) });
@@ -42,22 +42,28 @@ export class SelectionSortComponent implements OnInit {
     async selectionSort(arrayToSort: Array<BarGraphModel> = []) {
         for (let i = 0; i < arrayToSort.length - 1; i++) {
             let min_index = i;
+            let element1Color = arrayToSort[min_index].color;
+            let ithElementColor = element1Color;
+            activeElementColor(arrayToSort, min_index);
             for (let j = i + 1; j < arrayToSort.length; j++) {
+                const element2Color = arrayToSort[j].color;
+                activeElementColor(arrayToSort, j);
                 if (arrayToSort[j].value < arrayToSort[min_index].value) {
+                    if (min_index != i) resetElementColor(arrayToSort, min_index, element1Color);
                     min_index = j;
+                    element1Color = element2Color;
                 }
+                await timer(this.delay);
+                if (min_index != j) resetElementColor(arrayToSort, j, element2Color);
             }
-            const temp = arrayToSort[min_index];
-            arrayToSort[min_index] = arrayToSort[i];
-            arrayToSort[i] = temp;
             if (min_index != i) {
-                await this.timer(this.delay);
-            }
+                swap(arrayToSort, min_index, i);
+                resetElementColor(arrayToSort, min_index, ithElementColor);
+                resetElementColor(arrayToSort, i, element1Color);
+                await timer(this.delay);
+            } else resetElementColor(arrayToSort, i, ithElementColor);
         }
+        await timer(100);
         window.alert('Selection sort completed');
-    }
-
-    timer(milliSeconds: number) {
-        return new Promise(res => setTimeout(res, milliSeconds));
     }
 }
