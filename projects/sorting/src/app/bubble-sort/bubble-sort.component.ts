@@ -12,7 +12,7 @@ export class BubbleSortComponent implements OnInit {
     maxNumber = 3000;
     minNumber = 100;
     Values: Array<BarGraphModel> = [];
-    delay = 150;
+    delay = 100;
     sorted = false;
     btnDisabled = false;
 
@@ -48,13 +48,12 @@ export class BubbleSortComponent implements OnInit {
                 const element2Color = arrayToSort[j + 1].color;
                 activeElementColor(arrayToSort, j);
                 activeElementColor(arrayToSort, j + 1);
-                await timer(this.delay + 300);
+                await timer(this.delay);
                 let elementsSwapped = false;
                 if (arrayToSort[j].value > arrayToSort[j + 1].value) {
                     elementsSwapped = true;
                     this.sorted = false;
                     swap(arrayToSort, j, j + 1);
-                    await timer(this.delay);
                     resetElementColor(arrayToSort, j, element2Color);
                     resetElementColor(arrayToSort, j + 1, element1Color);
                 }
