@@ -12,7 +12,7 @@ export class QuickSortComponent implements OnInit {
     maxNumber = 3000;
     minNumber = 100;
     Values: Array<BarGraphModel> = [];
-    delay = 150;
+    delay = 100;
     btnDisabled = false;
     pendingRecursiveCall = 0;
 

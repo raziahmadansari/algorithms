@@ -12,7 +12,7 @@ export class InsertionSortComponent implements OnInit {
     maxNumber = 3000;
     minNumber = 100;
     Values: Array<BarGraphModel> = [];
-    delay = 150;
+    delay = 100;
     btnDisabled = false;
 
     constructor() { }
