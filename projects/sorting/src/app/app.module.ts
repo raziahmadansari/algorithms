@@ -8,6 +8,7 @@ import { BubbleSortComponent } from './bubble-sort';
 import { DashboardComponent } from './dashboard';
 import { SelectionSortComponent } from './selection-sort';
 import { InsertionSortComponent } from './insertion-sort';
+import { QuickSortComponent } from './quick-sort';
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import { InsertionSortComponent } from './insertion-sort';
         BubbleSortComponent,
         DashboardComponent,
         SelectionSortComponent,
-        InsertionSortComponent
+        InsertionSortComponent,
+        QuickSortComponent
     ],
     imports: [
         BrowserModule,
