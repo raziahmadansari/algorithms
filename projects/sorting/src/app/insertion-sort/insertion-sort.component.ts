@@ -47,8 +47,10 @@ export class InsertionSortComponent implements OnInit {
                 arrayToSort[j + 1] = arrayToSort[j];
                 j -= 1;
             }
-            arrayToSort[j + 1] = key;
-            await this.timer(this.delay);
+            if (arrayToSort[j + 1].value != key.value) {
+                arrayToSort[j + 1] = key;
+                await this.timer(this.delay);
+            }
         }
         window.alert('Insertion sort completed');
     }
